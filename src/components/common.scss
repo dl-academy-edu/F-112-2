@@ -1,28 +1,206 @@
-// Подключение компонентов
-@import "./header/header";
-@import "./footer/footer";
+* {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: Oswald, sans-serif;
+  font-family: 'Lato Ps', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  color: #2C3036;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
 }
 
 .container {
-  width: 100%;
   max-width: 1180px;
   margin: 0 auto;
-  padding-right: 20px;
-  padding-left: 20px;
 }
 
-.title-block {
-  margin: 0 0 20px 0;
-
-  &_one {
-    font-size: 30px;
-    text-transform: uppercase;
-  }
-  &_two {
-    font-size: 25px;
-    max-width: 500px;
-  }
+.undotted {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  
 }
+
+.hidden {
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+}
+
+.button {
+  background: #008752;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  text-transform: uppercase;
+  display: block;
+  width: 181px;
+  text-align: center;
+  padding: 11px;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #26CD8B;
+}
+.button:active {
+  background: #005232;
+}
+
+.button-secondary {
+  background: #95459A;
+}
+
+/* INPUT */
+
+label,
+.label-wrapper span,
+legend {
+  font-size: 18px;
+  line-height: 22px;
+  color: #6B6A6A;
+  margin-bottom: 6px;
+}
+
+input,
+textarea {
+  border: 2px solid #777;
+  font-size: 16px;
+  line-height: 24px;
+  color: #797979;
+  padding: 13px 20px;
+  background: transparent;
+  resize: none;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(255, 182, 18, 0.5);
+}
+
+input:disabled,
+textarea:disabled {
+  opacity: .5;
+}
+
+textarea {
+  max-height: 101px;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+}
+
+.field-2-column {
+  display: flex;
+  justify-content: space-between;
+}
+
+.field-2-column .label-wrapper {
+  width: 280px;
+}
+
+.label-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* flex-direction: column-reverse; */
+  margin-bottom: 20px;
+}
+
+.label-wrapper:focus-within label,
+.label-wrapper:focus-within span {
+  color: #FFB612;
+}
+
+/* input:focus + label,
+textarea:focus + label {
+  color: #FFB612;
+} */
+
+
+.contact-list {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: none;
+}
+
+.checkbox-label,
+.radio-label {
+  position: relative;
+  cursor: pointer;
+  padding-left: 30px;
+  margin-right: 33px;
+}
+
+.checkbox-label:before,
+.checkbox-label:after,
+.radio-label:before,
+.radio-label:after {
+  content: '';
+  position: absolute;
+  display: block;
+}
+
+.checkbox-label:before,
+.radio-label:before {
+  width: 21px;
+  height: 21px;
+  border: 2px solid #777;
+  background: transparent;
+  top: -2px;
+  left: 0;
+}
+
+.radio-label:before {
+  border-radius: 50%;
+  background: #fff;
+}
+
+.checkbox-label:after,
+.radio-label:after {
+  width: 15px;
+  height: 15px;
+  background: #95459A;
+  top: 3px;
+  left: 5px;
+  opacity: 0;
+}
+.radio-label:after {
+  border-radius: 50%;
+}
+
+.checkbox-input:checked + .checkbox-label:after,
+.radio-input:checked + .radio-label:after {
+  opacity: 1;
+}
+
+.checkbox-input:disabled + .checkbox-label,
+.radio-input:disabled + .radio-label,
+.checkbox-input:disabled + .checkbox-label:before,
+.radio-input:disabled + .radio-label:before {
+  opacity: .5;
+}
+
+// Подключение компонентов
+@import "./header/header";
+@import "./footer/footer";
+@import "./map/map";
+@import "./service-list/service-list";

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Contact Us</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/common.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	@@include('header/index.html')
+
+	<main class="container">
+        <section>
+            <h1 class="contact-title">Contact  Us</h1>
+			<form action="#" class="contact-form">
+				<div class="field-2-column">
+					<div class="label-wrapper">
+						<label for="input-name" class="">Name</label>
+						<input type="text" id="input-name" class="" placeholder="Ivan Ivanov">
+						<!-- <label for="input-name" class="">Name</label> -->
+					</div>
+					<div class="label-wrapper">
+						<label for="input-phone" class="">Phone</label>
+						<input type="tel" id="input-phone" class="">
+					</div>
+				</div>
+
+				<label class="label-wrapper">
+					<span>E-mail</span>
+					<input type="email" class="">
+				</label>
+
+				<fieldset>
+					<legend>Payment Methods</legend>
+					<ul class="undotted contact-list">
+						<li>
+							<input type="checkbox" id="input-cash" class="checkbox-input" checked>
+							<label for="input-cash" class="checkbox-label">Сash</label>
+						</li>
+						<li>
+							<input type="checkbox" id="input-card" class="checkbox-input">
+							<label for="input-card" class="checkbox-label">Сredit Сard</label>
+						</li>
+						<li>
+							<label class="">
+								<input type="checkbox" class="checkbox-input">
+								<span class="checkbox-label">Receipt</span>
+							</label>
+						</li>
+					</ul>
+				</fieldset>
+
+					<label class="label-wrapper">
+						<span>City of Birth</span>
+						<input type="date" class="">
+					</label>
+
+				<fieldset>
+					<legend>Do you need a report on the services provided?</legend>
+					<ul class="undotted contact-list">
+						<li>
+							<input type="radio" id="input-yes" name="report" class="radio-input">
+							<label for="input-yes" class="radio-label">Yes</label>
+						</li>
+						<li>
+							<input type="radio" id="input-no" name="report" class="radio-input">
+							<label for="input-no" class="radio-label">No</label>
+						</li>
+					</ul>
+				</fieldset>
+
+				<div class="label-wrapper">
+					<label for="textarea">Message</label>
+					<textarea name="" id="textarea" cols="30" rows="10"></textarea>
+				</div>
+
+				<button type="submit" class="button">SUBMIT</button>
+			</form>
+        </section>
+	</main>
+	
+    @@include('map/index.html')
+	@@include('footer/index.html')
+</body>
+</html>
