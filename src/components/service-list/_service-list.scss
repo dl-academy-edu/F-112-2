@@ -1,10 +1,9 @@
-.services-item {
+.services{
+  &__item {
     width: 280px;
     margin: 10px;
   }
-  
-  
-  .services-heading {
+  &__heading {
     font-weight: 700;
     font-size: 30px;
     line-height: 36px;
@@ -12,4 +11,4 @@
     margin: 19px 0 20px;
     width: 70%;
   }
-  
+}

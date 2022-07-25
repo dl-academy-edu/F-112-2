@@ -1,5 +1,5 @@
 var popup = document.querySelector('.popup');
-var popupBtn = document.querySelector('.banner-js');
+var popupBtn = document.querySelector('.banner_js');
 var popupClose = document.querySelector('.popup-close');
 var input = popup.querySelector('input');
 

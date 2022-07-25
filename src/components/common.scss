@@ -1,12 +1,13 @@
+@import "./vars";
+@import "./mixin";
+
 * {
   box-sizing: border-box;
 }
 
 body {
+  @include font;
   font-family: 'Lato Ps', 'Arial', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 21px;
   color: #2C3036;
 }
 
@@ -38,7 +39,6 @@ a {
 }
 
 .button {
-  background: #008752;
   color: #fff;
   font-weight: 700;
   font-size: 15px;
@@ -148,45 +148,40 @@ input[type="radio"] {
   cursor: pointer;
   padding-left: 30px;
   margin-right: 33px;
+
+  &::after,
+  &::before {
+    @extend %psevdo;
+  }
+
+  &:before {
+    width: 21px;
+    height: 21px;
+    border: 2px solid #777;
+    background: transparent;
+    top: -2px;
+    left: 0;
+  }
+  &:after {
+    width: 15px;
+    height: 15px;
+    background: #95459A;
+    top: 3px;
+    left: 5px;
+    opacity: 0;
+  }
 }
 
-.checkbox-label:before,
-.checkbox-label:after,
-.radio-label:before,
-.radio-label:after {
-  content: '';
-  position: absolute;
-  display: block;
-}
 
-.checkbox-label:before,
-.radio-label:before {
-  width: 21px;
-  height: 21px;
-  border: 2px solid #777;
-  background: transparent;
-  top: -2px;
-  left: 0;
+.radio-label{
+  &:before {
+    border-radius: 50%;
+    background: $white;
+  }
+  &::after {
+    border-radius: 50%;
+  }
 }
-
-.radio-label:before {
-  border-radius: 50%;
-  background: #fff;
-}
-
-.checkbox-label:after,
-.radio-label:after {
-  width: 15px;
-  height: 15px;
-  background: #95459A;
-  top: 3px;
-  left: 5px;
-  opacity: 0;
-}
-.radio-label:after {
-  border-radius: 50%;
-}
-
 .checkbox-input:checked + .checkbox-label:after,
 .radio-input:checked + .radio-label:after {
   opacity: 1;
