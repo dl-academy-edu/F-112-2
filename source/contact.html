@@ -1,17 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Contact Us</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/common.css">
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
-	@@include('header/index.html')
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="google" content="notranslate">
+    <meta name="format-detection" content="telephone=no">
+
+    <title>DL Academy</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <script>
+      var docElement = document.documentElement;
+      docElement.className = docElement.className.replace(/\bno-js\b/, '') + ' js';
+    </script>
+
+    <!-- Favicon -->
+
+    <!-- build:css -->
+    <link href="css/contact.min.css" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body>
+    
+    
+	<header class="header container">
+		<a href="/">
+			<img src="img/logo.png" alt="">
+		</a>
+		<nav class="header-menu">
+			<ul class="undotted header-list">
+				<li>
+					<a href="#" class="header-link">Catalog</a>
+				</li>
+				<li>
+					<a href="#">Servises</a>
+				</li>
+				<li>
+					<a href="#">Blog</a>
+				</li>
+				<li>
+					<a href="#">About us</a>
+				</li>
+			</ul>
+		</nav>
+		<a href="tel:7194319698">719-431-9698</a>
+		<a href="contact.html" class="button">Contact Us</a>
+	</header>
 
 	<main class="container">
         <section>
@@ -82,8 +117,46 @@
 			</form>
         </section>
 	</main>
-	
-    @@include('map/index.html')
-	@@include('footer/index.html')
-</body>
+	<article class="map">
+		<div class="container">
+			<div class="map-wrapper">
+				<h2>Chem-Dry</h2>
+				<p>9420 Cedar CT, Thornton, CO 80229</p>
+				<a href="tel:7206059399 ">(720) 605-9399</a>
+				<a href="#" class="button button-secondary">Learn More</a>
+			</div>
+			
+		</div>
+		<img src="img/map.jpg" alt="" class="map-img">
+	</article>
+
+	<footer class="footer">
+		<div class="container footer-wrapper">
+			<p>Subscribe to our social networks</p>
+			<ul class="undotted footer-social">
+				<li>
+					<a href="#">
+						<img src="img/fb.svg" alt="">
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/fb.svg" alt="">
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/fb.svg" alt="">
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/fb.svg" alt="">
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+	</footer>
+  </body>
 </html>

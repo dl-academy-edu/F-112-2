@@ -1,135 +1,150 @@
-let gulp = require("gulp"),
-  sass = require("gulp-sass"),
-  autoprefixer = require("gulp-autoprefixer"),
-  cleanCSS = require("gulp-clean-css"),
-  babel = require("gulp-babel"),
-  uglify = require("gulp-uglify"),
-  del = require("del"),
-  browserSync = require("browser-sync"),
-  fileinclude = require("gulp-file-include"),
-  fs = require("fs-extra"),
-  path = require("path");
+'use strict';
 
-sass.compiler = require("node-sass"); // Переназначаем компилирование
+var gulp = require('gulp');
+var del = require('del');
+var path = require('path');
 
-// Название build папки
-const finalFolder = "build";
+var rename = require('gulp-rename');
 
-// Функция обработки html файлов
-function html(src, dest) {
-  return gulp
-    .src(src)
+var htmlmin = require('gulp-htmlmin');
+var htmlreplace = require('gulp-html-replace');
+var fileinclude = require('gulp-file-include');
+
+var sass = require('gulp-sass')(require('sass'));
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+var cssnano = require('cssnano');
+
+var svgstore = require('gulp-svgstore');
+var svgo = require('gulp-svgo');
+
+var fs = require('fs');
+var server = require('browser-sync').create();
+
+var paths = {
+  build: './build',
+
+  src: './source',
+  views: './source',
+  styles: './source/scss',
+  js: './source/js',
+
+  htmlincludes: './source/views',
+};
+
+gulp.task('styles', function () {
+  var processors = [
+    autoprefixer()
+  ];
+
+  return gulp.src([
+      paths.styles + '/style.scss'
+    ])
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(postcss(processors))
+    .pipe(gulp.dest(paths.build + '/css/'))
+    .pipe(postcss([
+      cssnano()
+    ]))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest(paths.build + '/css/'))
+    .pipe(server.stream());
+});
+
+gulp.task('render-view', function () {
+  let v = + new Date();
+
+  return gulp.src([
+      paths.views + '/*.html',
+    ])
     .pipe(
       fileinclude({
-        prefix: "@@",
-        basepath: "./src/components"
-      }).on("error", function(error) {
-        console.error(error);
+        prefix: '@@',
+        basepath: paths.htmlincludes,
+      }).on('error', function(error) {
+        console.error('File include error', error);
       })
     )
-    .pipe(gulp.dest(dest))
-    .pipe(browserSync.reload({ stream: true }));
-}
-// Функция обработки scss файлов
-function scss(src, dest) {
-  return gulp
-    .src(src)
-    .pipe(sass().on("error", sass.logError))
-    .pipe(
-      autoprefixer({
-        cascade: false
-      })
-    )
-    .pipe(
-      cleanCSS({
-        level: 2
-      })
-    )
-    .pipe(gulp.dest(dest))
-    .pipe(browserSync.reload({ stream: true }));
-}
-// Функция обработки js файлов
-function js(src, dest) {
-  return gulp
-    .src(src)
-    .pipe(
-      babel({
-        presets: ["@babel/env"]
-      })
-    )
-    .pipe(
-      uglify({ toplevel: true }).on("error", function() {
-        this.emit("end");
-      })
-    )
-    .pipe(gulp.dest(dest))
-    .pipe(browserSync.reload({ stream: true }));
-}
-// Функция обработки шрифтов
-function fonts(src, dest) {
-  fs.mkdirSync(dest, {recursive: true});
-  fs.copy(src, dest);
-  // TODO: нужно сделать оптимизацию шрифтов
-}
-// Функция обработки картинок
-function img(src, dest) {
-  fs.mkdirSync(dest, {recursive: true});
-  fs.copy(src, dest);
-  // TODO: нужно сделать оптимизацию картинок
-}
+    .pipe(htmlreplace({
+      'js': 'js/scripts.min.js?v=' + v,
+      'css': 'css/style.min.css?v=' + v
+    }))
+    .pipe(htmlmin({
+      collapseWhitespace: false,
+      // collapseWhitespace: true,
+      // conservativeCollapse: true,
+      removeComments: true
+    }))
+    .pipe(gulp.dest(paths.build))
+    .pipe(server.stream());
+});
 
-// Функция сборки проекта
-async function buildProject() {
-  // Очистка папки "build"
-  await del([`./${finalFolder}/*`]);
+gulp.task('clean', function () {
+  return del(paths.build);
+});
 
-  // Обработка всех страниц (html, scss, js)
-  const arrayPages = fs.readdirSync("./src/pages");
-  let pathBuild = "";
-  for (let folder of arrayPages) {
-    folder === "main"
-      ? (pathBuild = `./${finalFolder}`)
-      : (pathBuild = `./${finalFolder}/pages/${folder}`);
+gulp.task('copy', function() {
+  return gulp.src([
+      paths.src + '/img/**/*',
+      paths.src + '/fonts/**/*'
+    ], {
+      base: paths.src
+    })
+    .pipe(gulp.dest(paths.build));
+});
 
-    const pathFolder = `./src/pages/${folder}`;
-    for (let file of fs.readdirSync(pathFolder)) {
-      const fileName = `./${pathFolder}/${file}`;
+gulp.task('copy-js', function() {
+  return gulp.src([
+      paths.js + '/**/*'
+    ], {
+      base: paths.js
+    })
+    .pipe(gulp.dest(paths.build + '/js'));
+});
 
-      switch (path.extname(fileName)) {
-        case ".html":
-          html(fileName, pathBuild);
-          break;
-        case ".scss":
-          scss(fileName, pathBuild);
-          break;
-        case ".js":
-          js(fileName, pathBuild);
-          break;
-      }
-    }
-  }
+gulp.task('svg-store', function () {
+  return gulp.src(paths.src + '/img/svg/*.svg')
+    .pipe(svgo({
+      plugins: [{
+        removeDoctype: true
+      }, {
+        removeComments: true
+      }, {
+        cleanupNumericValues: {
+          floatPrecision: 2
+        }
+      }, {
+        removeViewBox: false
+      }]
+    }))
+    .pipe(svgstore())
+    .pipe(gulp.dest(paths.src + '/img/'));
+});
 
-  // Обработка стилей компонентов
-  scss("./src/components/common.scss", `./${finalFolder}`);
-  // Обработка картинок
-  img("./src/static/images", `./${finalFolder}/static/images`);
-  // Обработка шрифтов
-  fonts("./src/static/fonts", `./${finalFolder}/static/fonts`);
-}
+gulp.task('build-dev', gulp.series('clean', gulp.parallel('styles', 'render-view'), 'copy', 'copy-js'));
 
-// Функция которая слушает изменения файлов в проекте
-function watch() {
-  browserSync.init({
-    server: {
-      baseDir: `./${finalFolder}`
-    }
-  });
-  // При изменении любого типа файлов пересобрать проект
-  gulp.watch("./src/**/*.*", buildProject);
-}
-gulp.task("watch", watch);
+gulp.task('build', gulp.series('clean', gulp.parallel('styles', 'render-view'), 'copy', 'copy-js'));
 
-// Сборка проекта
-gulp.task("build", buildProject);
-// Режим разработки
-gulp.task("start", gulp.series("build", "watch"));
+gulp.task('server', function () {
+  server.init({
+    server: paths.build,
+    notify: false,
+    open: true,
+    ui: false
+  })
+
+  gulp.watch(paths.styles + '/**/**/**/*.scss', gulp.series('styles'));
+  gulp.watch(paths.views + '/**/**/*.html', gulp.series('render-view'));
+  gulp.watch(paths.src + '/img/**/*', gulp.series('copy'));
+
+  gulp.watch(paths.js + '/**/*', gulp.series('copy-js'));
+
+  gulp.watch(paths.src + '/img/svg/*', gulp.series('svg-store', 'copy'));
+});
+
+gulp.task('default', gulp.series('build-dev', 'server'));
+
+gulp.task('prod', gulp.series('build'));
+gulp.task('serve', gulp.series('default'));

@@ -1,0 +1,291 @@
+@import "_variables.base";
+@import "_mixins";
+
+/*
+  Import utils classes and base styles
+*/
+@import "_base";
+
+/*
+  Import all other blocks
+*/
+@import "_blocks/footer";
+
+/*
+  Ниже пример подключения других блоков
+
+  Каждый новый файл должен отвечать за конкретный блок в терминах БЭМ
+  (https://ru.bem.info/methodology/key-concepts/#%D0%B1%D0%BB%D0%BE%D0%BA)
+
+  Для именования селекторов давайте придерживаться стиля two dashes
+  (https://ru.bem.info/methodology/naming-convention/#%D1%81%D1%82%D0%B8%D0%BB%D1%8C-two-dashes)
+  block-name__element-name--modificator
+*/
+
+/*
+  Код ниже нужно удалить, он добавлен просто для примера
+  Не стал выносить в отдельный файл, но если бы блок coming-soon действительно был бы нужен,
+  то он должен был бы быть в файле _blocks/coming-soon.scss
+*/
+
+
+@keyframes chat {
+  100% {
+    max-height: 500px;
+  }
+}
+
+.chat {
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.35);
+  width: 300px;
+  height: 488px;
+  overflow: hidden;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background: #fff;
+
+  &__header {
+    background: #F6F6F8;
+    padding: 15px;
+    position: relative;
+    border-bottom: 1px solid #d9d9d8;
+    position: absolute;
+    width: 100%;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #27253F;
+    margin: 0;
+  }
+
+  &__desc {
+    font-size: 12px;
+    line-height: 14px;
+    color: #6B6A6A;
+  }
+
+  &__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+  }
+
+  &__message-container {
+    max-height: 0;
+    animation: chat 2s forwards;
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        animation-delay: $i + s;
+      }
+    }
+  }
+
+  &__message {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 8px 10px;
+    position: relative;
+    border-radius: 10px;
+    width: 75%;
+    color: #27253F;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      bottom: 0;
+    }
+
+    &_right {
+      background: #2198F4;
+      color: #fff;
+      margin: 0 15px 15px auto;
+      &::after {
+        background: url(../img/blue-tail.png) no-repeat;
+        right: -6px;
+      }
+    }
+    &_left {
+      background: #E4E3E8;
+      margin: 0 auto 15px 15px;
+      &:after {
+        background: url(../img/gray-tail.png) no-repeat;
+        left: -6px;
+      }
+    }
+  }
+}
+
+.contact-title {
+  font-weight: 900;
+  font-size: 50px;
+  line-height: 97.2%;
+  text-align: center;
+  color: #00559D;
+  margin: 15px 0 60px;
+}
+
+.contact-form {
+  width: 780px;
+  margin: 0 auto;
+  background: #EEEEEE;
+  padding: 50px 100px;
+  margin-bottom: 80px;
+}
+
+
+/* BANNER */
+.banner {
+  /* background: url(../img/fon.jpg) no-repeat center #e0e7ed; */
+  background-image: url(../img/fon.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #e0e7ed;
+  /* background-size: cover; */
+  padding: 143px 0 286px;
+  margin-bottom: 80px;
+}
+
+.banner-title {
+  font-weight: 900;
+  font-size: 90px;
+  line-height: 100%;
+  color: #00559D;
+  margin: 0;
+  margin-bottom: 49px;
+  width: 80%;
+  letter-spacing: -1px;
+}
+
+/* services */
+
+.services {
+  margin-bottom: 110px;
+}
+
+.services-title {
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 50px;
+  text-transform: uppercase;
+  color: #00559D;
+  text-align: center;
+}
+
+.services-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.services-item {
+  width: 280px;
+  margin: 10px;
+}
+
+.services-heading {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 36px;
+  color: #2C3036;
+  margin: 19px 0 20px;
+  width: 70%;
+}
+
+
+/* ABOUT */
+
+.about {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 186px;
+  position: relative;
+}
+
+.about:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50px;
+  right: -90px;
+  width: 570px;
+  height: 499px;
+  background: #008752;
+}
+
+.about-title {
+  font-weight: 900;
+  font-size: 72px;
+  line-height: 100%;
+  color: #005DAB;
+  margin: 0 0 46px;
+}
+
+.about-wrapper {
+  max-width: 480px;
+}
+
+.about-img {
+  z-index: 1;
+}
+
+/* AWARDS */
+
+.awards {
+  margin-bottom: 80px;
+}
+
+.awards-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* popup */
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(149, 69, 154, 0.9);
+  bottom: 0;
+  z-index: 2;
+  display: none;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-open {
+  display: flex;
+}
+
+.popup-form {
+  width: 680px;
+  background: #EEEEEE;
+  padding: 50px;
+  position: relative;
+}
+
+.popup-close {
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
