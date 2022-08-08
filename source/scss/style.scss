@@ -29,6 +29,54 @@
 */
 
 
+.svg {
+  cursor: pointer;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+
+  .eyebrow-one,
+  .eyebrow-two,
+  .eye-one,
+  .eye-two,
+  .eye-one_mini,
+  .eye-two_mini {
+    transition: .4s;
+  }
+
+  &:hover {
+    .eyebrow-one {
+      transform: translateY(-1px);
+    }
+
+    .eye-one,
+    .eye-two,
+    .eye-one_mini,
+    .eye-two_mini {
+      transform: translateY(2px);
+    }
+  }
+
+  &:active {
+    .eyebrow-one {
+      transform: translateY(1px);
+    }
+
+    .eyebrow-two {
+      transform: translateY(-2px);
+    }
+
+    .eye-one,
+    .eye-one_mini{
+      transform: translate(-4px, -2px);
+    }
+    .eye-two,
+    .eye-two_mini{
+      transform: translateY(-2px);
+    }
+  }
+}
+
 @keyframes chat {
   100% {
     max-height: 500px;
@@ -41,7 +89,7 @@
   height: 488px;
   overflow: hidden;
   position: fixed;
-  bottom: 50px;
+  bottom: 100px;
   right: 50px;
   background: #fff;
 
