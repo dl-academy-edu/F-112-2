@@ -1,0 +1,99 @@
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-top: 33px;
+    margin-bottom: 33px;
+    gap: 20px;
+    @media screen and (max-width: 768px) {
+        justify-content: space-between;
+    }
+    &__menu {
+        margin: 0 auto 0 25px;
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+        a {
+            color: #333333;
+            margin-right: 30px;
+          }
+    }
+    &__list {
+        display: flex;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+    }
+    &__phone {
+        font-weight: 800;
+        font-size: 17px;
+        line-height: 20px;
+        color: #95459A;
+    }
+
+    .button {
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+  }
+
+  .humburger {
+    display: none;
+    @media screen and (max-width: 768px) {
+        display: block;
+    }
+  }
+
+  .mobile-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(149, 69, 154, 0.9);
+    transform: translateX(-1000px);
+    transition: .4s;
+
+    &__open {
+        display: block;
+        transform: translateX(0);
+    }
+
+    &__close {
+        position: absolute;
+        top: 24px;
+        right: 10%;
+    }
+
+    &__wrapper {
+        background: #EEEEEE;
+        box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.25);
+        width: 80%;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__menu {
+        margin: 25px 0 auto 0;
+    }
+
+    &__list {
+        @extend .header__list;
+        font-size: 20px;
+        line-height: 24px;
+        display: flex;
+        flex-direction: column;
+
+        li {
+            margin-bottom: 25px;
+        }
+    }
+
+    &__phone {
+        @extend .header__list;
+    }
+  }
