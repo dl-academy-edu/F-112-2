@@ -152,36 +152,33 @@
 		<section class="services container">
 			<h2 class="services-title">OUR MOST POPULAR SERVICES</h2>
 			<ul class="services-list undotted">
-				<li class="services-item">
-					<a href="#">
-						<img src="img/services/service1.jpg" alt="">
-						<h3 class="services-heading">Carpet Cleaning</h3>
-					</a>
-					<p>When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.
-					</p>
-					<a href="#" class="button">Learn More</a>
-				</li>
-				<li class="services-item">
-					<img src="img/services/service2.jpg" alt="">
-					<h3 class="services-heading">Carpet Cleaning</h3>
-					<p>When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.
-					</p>
-					<a href="#" class="button">Learn More</a>
-				</li>
-				<li class="services-item">
-					<img src="img/services/service3.jpg" alt="">
-					<h3 class="services-heading">Carpet Cleaning</h3>
-					<p>When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.
-					</p>
-					<a href="#" class="button">Learn More</a>
-				</li>
-				<li class="services-item">
-					<img src="img/services/service4.jpg" alt="">
-					<h3 class="services-heading">Carpet Cleaning</h3>
-					<p>When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.
-					</p>
-					<a href="#" class="button">Learn More</a>
-				</li>
+				@@include('blocks/services.html', {
+					"title": "Carpet Cleaning",
+					"desc": "When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.",
+					"img": "img/services/service1.jpg",
+					"href":"#"
+				})
+				@@include('blocks/services.html', {
+					"title": "Carpet Cleaning",
+					"desc": "When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.",
+					"img": "img/services/service2.jpg",
+					"href":"#"
+				})
+				@@include('blocks/services.html', {
+					"title": "Carpet Cleaning",
+					"desc": "When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.",
+					"img": "img/services/service2.jpg",
+					"href":"#"
+
+				})
+				@@include('blocks/services.html', {
+					"title": "Carpet Cleaning",
+					"desc": "When you choose Chem-Dry, you get deeper clean, faster-drying carpet and healthier home for you.",
+					"img": "img/services/service2.jpg",
+					"href":"#"
+
+				})
+				
 			</ul>
 		</section>
 
@@ -198,7 +195,13 @@
 					detergents so it’s safe and non-toxic for your family and pets.</p>
 				<a href="#" class="button">Learn More</a>
 			</div>
-			<img src="img/about.jpg" alt="" class="about-img">
+			<picture class="about-img">
+				<source srcset="img/about-mobile.jpg, img/about-mobile-2x.jpg 2x" media="(max-width:767px)">
+				<source srcset="img/about.jpg, img/about2x.jpg 2x" media="(max-width:1023px)">
+				<source srcset="img/about.jpg, img/about2x.jpg 2x">
+				<img src="img/about.jpg" srcset="img/about.jpg" alt="">
+			</picture>
+			
 		</section>
 
 		<section class="awards container">
